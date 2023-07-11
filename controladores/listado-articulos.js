@@ -1,5 +1,12 @@
-import {articulos} from '../modelos/articulos'
+import {obtenerArticulos} from '../modelos/articulos'
 
+document.addEventListener('DOMContentLoaded', () => {
+    mostrarArticulos();
+})
+
+async function mostrarArticulos(){
+    const articulos = await obtenerArticulos();
+    console.log (articulos);
 const listado = document.querySelector("#listado"); // getElementById("listado")
 for (let articulo of articulos) {
   listado.innerHTML += `
@@ -11,10 +18,7 @@ for (let articulo of articulos) {
                             <span name="spancodigo">${articulo.codigo}</span> - <span name="spannombre">${articulo.nombre}</span>
                         </h5>
                         <p class="card-text">
-                            Procesador: ${articulo.descripcion.procesador} <br>
-                            Almacenamiento: ${articulo.descripcion.almacenamiento} <br>
-                            Cámaras: ${articulo.descripcion.camaras} <br>
-                            Pantalla: ${articulo.descripcion.pantalla}.
+                             ${articulo.descripcion}.
                         </p>
                         <h5>$ <span name="spanprecio">${articulo.precio}</span></h5>
                         <input type="number" name="inputcantidad" class="form-control" value="0" min="0" max="30" onchange="calcularPedido()">
@@ -23,5 +27,7 @@ for (let articulo of articulos) {
             </div>
 `;
 }
+}
+
 
 
