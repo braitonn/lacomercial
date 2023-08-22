@@ -1,15 +1,29 @@
-import {obtenerArticulos} from '../modelos/articulos'
+import { obtenerArticulos } from '../modelos/articulos';
+
+const url = './api/datos.php?tabla=articulos';
+
+//formulario
+const formulario = document.querySelector('#formulario');
+const formularioModal = new bootstrap.Modal(document.querySelector('#formularioModal'));
+const btnNuevo = document.querySelector('#btnNuevo')
+
+//inputs
+const inputCodigo = document.querySelector('#codigo');
+const inputNombre = document.querySelector('#nombre');
+const inputDescipcion = document.querySelector('#descripcion');
+const inputPrecio = document.querySelector('#precio');
+const inputImagen = document.querySelector('#imagen');
 
 document.addEventListener('DOMContentLoaded', () => {
     mostrarArticulos();
 })
 
-async function mostrarArticulos(){
+async function mostrarArticulos() {
     const articulos = await obtenerArticulos();
-    console.log (articulos);
-const listado = document.querySelector("#listado"); // getElementById("listado")
-for (let articulo of articulos) {
-  listado.innerHTML += `
+    console.log(articulos);
+    const listado = document.querySelector("#listado"); // getElementById("listado")
+    for (let articulo of articulos) {
+        listado.innerHTML += `
               <div class="col">
                 <div class="card" style="width:18rem;">
                     <img src="imagenes/productos/${articulo.imagen}" alt="${articulo.nombre}" class="card-img-top">
@@ -26,8 +40,36 @@ for (let articulo of articulos) {
                 </div>
             </div>
 `;
+    }
 }
-}
+
+formulario.addEventListener('submit', function(e){
+    e.preventDefault(); //prevenimos la accion por defecto
+    const datos = new FormData(formulario); //guardamos los datos del formulario
+    fetch(url + '&accion=insertar', {
+    method: 'POST',
+    body: datos
+    })
+    .then(res => res.json)
+    .then(data => {
+        mostrarArticulos();
+
+    })
+})
+
+/**
+ * ejecuta el evento clic del boton nuevo
+ */
+btnNuevo.addEventListener('click', () => {
+    //limpiamos los imputs
+    inputCodigo.value = null;
+    inputNombre.value = null;
+    inputDescipcion.value = null;
+    inputPrecio.value = null;
+    inputImagen.vaue = null;
+
+    formularioModal.show();
+})
 
 
 

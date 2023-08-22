@@ -72,6 +72,7 @@ class ModeloABM extends Modelo {
     public function set_limit() {
         return $this->limit;
     }
+    
     /**
      * Metodo de insercion datos
      * @param valores los valores a isertar
@@ -83,7 +84,7 @@ class ModeloABM extends Modelo {
         $datos = '';
 
         //recorrer el objeto $valores
-        foreach($valores as $key=$value){
+        foreach($valores as $key=>$value){
             $value = "'".$value."'";
             $campos .= $key.", ";
             $daros .= $value.", ";

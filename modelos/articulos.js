@@ -1,5 +1,5 @@
 //Constante para la url  de la api
-const url = './api/datos.php?tabla=articulos';
+const url = './api/datos.php?tabla=articulos&accion=seleccionar';
 
 //crear una funcion para obtener los datos
 export async function obtenerArticulos() {
