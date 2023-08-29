@@ -73,8 +73,9 @@ formulario.addEventListener('submit', function (e) {
 
             });
             break;
-    }
-    case "actualizar": fetch(`${url} + &accion=actualzar&id=${id}`, {
+    
+        case "actualizar":
+             fetch(`$(url)&accion=insertar&id=${id}`, {
         method: 'POST',
         body: datos,
 
@@ -85,7 +86,8 @@ formulario.addEventListener('submit', function (e) {
             mostrarArticulos();
 
         });
-    break;
+        break;
+    }
 
 })
 
@@ -147,6 +149,25 @@ on(document, 'click', '.btnEditar', e => {
     accion = 'actualizar';
 
 })
+
+/**
+ * evento click del boton borrar
+ */
+on(document, 'click', '.btnBorrar', e =>{
+    const cardFooter = e.target.parendNode;
+    id = cardFooter.querySelector('.idArticulo').value;
+    const nombre = cardFooter.parendNode.querySelector("span[name=spannombre]").innerHTML;
+    let aceptar = confirm(`¿Realmente desea eliminar a ${nombre}?`);
+    if(aceptar){
+        console.log(`${nombre} Eliminado`);
+        fetch(`${url}&accion=eliminar&id=${id}`)
+            .then(res => res.json())
+            .then(data => {
+                insertarAlerta(data, 'danger');
+                mostrarArticulos();
+            });
+    }
+});
 
 
 

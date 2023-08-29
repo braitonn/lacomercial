@@ -17,6 +17,12 @@ if (isset($_GET['tabla'])){
                     $tabla->insertar($valores);
                     break;
 
+            case 'eliminar':             //en caso de que sea eliminar
+                $tabla->eliminar();         // ejecutamos el metodo eliminar
+                $mensaje = 'registro eliminado'; //creamos un mensaje
+                echo json_encode($mensaje);
+                break;
+
         }
     }
 }

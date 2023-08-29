@@ -29,7 +29,7 @@ class ModeloABM extends Modelo {
     private $orden ='id';   //campis de ordenamientos
     private $limit = 0;     //cantidad de registros
 
-    //constrictor
+    //constructor
     public function __construct($t) {
         parent::__construct(); //ejecutamos el contructor padre
         $this->tabla = $t;     //asignamos a tabla el parametro $t
@@ -94,7 +94,16 @@ class ModeloABM extends Modelo {
         
         //intruccion SQL
         $sql = "INSERT INTO $this->tabla($campos) VALUE($datos)";
-        echo $sql;
+        // echo $sql;
+        $this->_db->query($sql);
+    }
+
+    /**
+     * eliminar un registro
+     */
+    public function eliminar(){
+        // DELETE FROM articulos WHERE id=5
+        $sql = "DELETE FROM $this->tabla WHERE $this->criterio";
         $this->_db->query($sql);
     }
 }
